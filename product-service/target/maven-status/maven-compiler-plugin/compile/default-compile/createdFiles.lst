@@ -1,0 +1,11 @@
+com\Makeupsale\productservice\models\Product$ProductBuilder.class
+com\Makeupsale\productservice\ProductServiceApplication.class
+com\Makeupsale\productservice\data_transfer_objects\ProductResponse.class
+com\Makeupsale\productservice\data_transfer_objects\ProductRequest.class
+com\Makeupsale\productservice\data_transfer_objects\ProductResponse$ProductResponseBuilder.class
+com\Makeupsale\productservice\data_transfer_objects\ProductRequest$ProductRequestBuilder.class
+com\Makeupsale\productservice\models\Product.class
+com\Makeupsale\productservice\repositories\ProductRepository.class
+com\Makeupsale\productservice\services\ProductService.class
+com\Makeupsale\productservice\controllers\ProductController.class
+com\Makeupsale\productservice\servicesImpl\ProductServiceImpl.class

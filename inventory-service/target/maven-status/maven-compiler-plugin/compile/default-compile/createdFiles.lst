@@ -1,0 +1,6 @@
+com\Makeupsale\inventoryservice\services\InventoryService.class
+com\Makeupsale\inventoryservice\controllers\InventoryController.class
+com\Makeupsale\inventoryservice\models\Inventory.class
+com\Makeupsale\inventoryservice\Reositories\InventoryRepository.class
+com\Makeupsale\inventoryservice\servicesImpl\InventoryServiceImpl.class
+com\Makeupsale\inventoryservice\InventoryServiceApplication.class
