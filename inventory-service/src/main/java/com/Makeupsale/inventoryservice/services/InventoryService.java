@@ -5,5 +5,5 @@ import com.Makeupsale.inventoryservice.data_transfer_objects.InventoryResponse;
 import java.util.List;
 
 public interface InventoryService {
-    public List<InventoryResponse> isInStock(List<String> skuCode);
+    public List<InventoryResponse> isInStock(List<String> skuCode) throws InterruptedException;
 }

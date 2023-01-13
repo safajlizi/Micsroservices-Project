@@ -3,12 +3,14 @@ package com.Makeupsale.orderservice.servicesImpl;
 import com.Makeupsale.orderservice.data_transfer_objects.InventoryResponse;
 import com.Makeupsale.orderservice.data_transfer_objects.OrderItemsDto;
 import com.Makeupsale.orderservice.data_transfer_objects.OrderRequest;
+import com.Makeupsale.orderservice.event.OrderPlacedEvent;
 import com.Makeupsale.orderservice.models.Order;
 import com.Makeupsale.orderservice.models.OrderItems;
 import com.Makeupsale.orderservice.repositories.OrderRepository;
 import com.Makeupsale.orderservice.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -24,8 +26,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderRepository orderRepo;
     private final WebClient webClient;
+    private final KafkaTemplate<String,OrderPlacedEvent> kafkaTemplate;
     @Override
-    public void palceOrder(OrderRequest orderRequest) {
+    public String palceOrder(OrderRequest orderRequest) {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
         List<OrderItems> orderItems = orderRequest.getOrderItemsDtoList()
@@ -45,6 +48,8 @@ public class OrderServiceImpl implements OrderService {
       boolean allProductsInStock = Arrays.stream(InventoryResponseArray).allMatch(InventoryResponse::isInStock);
       if(allProductsInStock) {
         orderRepo.save(order);
+        kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
+        return "order place successfully";
       }else{
         throw new IllegalArgumentException("product is not in stock please try again later");
       }
